@@ -65,7 +65,8 @@ $(document).ready(function(){
   function endGame() {
     // TODO: End game
     // ADDED FUN: Disable submit button
-    console.log("End game");
+    $("#end-game").append("GAME OVER");
+    $("#submit").replaceWith("<p>All done!</p>");
   }
 
   // CLICK HANDLERS
@@ -120,16 +121,13 @@ $(document).ready(function(){
     // If LOSE
     if (guesses > 5) {
       alert("Sorry, you lose!");
-      gameOver = true
+      gameOver = true;
+      endGame();
     // if WIN
     } else if (board[ships[0]] == "X" && board[ships[1]] == "X") {
       alert("Congrats, you won!");
-      gameOver = true
-    }
-
-    if (gameOver == true){
-      $("#end-game").append("GAME OVER");
-
+      gameOver = true;
+      endGame();
     }
   }
 });
