@@ -94,6 +94,9 @@ $(document).ready(function(){
     //Guess must be a number
     } else if (isNaN(guess)) {
       alert("You gotta provide a number!");
+    // If the player already hit that ship
+    } else if  (board[guess] == "X") {
+      $("#guess-result").append("You already hit that ship!");
       // Check if the guess matches one of our ships locations
     } else if  (guess == ships[0] || guess == ships[1]) {
       board[guess] = "X";
