@@ -72,15 +72,21 @@ $(document).ready(function(){
   $("#submit").click(userGuess);
 
   function userGuess(){
+    // Reset HIT or MISS notifier
     $("#guess-result").empty()
     // Retrieve the guess from the input box
     var guess_box = $("#guess");
     var guess = guess_box.val();
     // Reset the guess input box
     guess_box.val("");
+
+    // Guess needs to be converted to a num for exact ===,
+    // otherwise players will get points for empty strings since "" == 0
+
+
     // Verify the guess is in a valid range
     // Guess can't be empty
-    if (guess.length == 0){
+    if (guess == ""){
       alert("Please enter a guess.");
     // Guess must be between 0 - 9
     } else if (guess < 0 || guess > 9){
@@ -88,13 +94,8 @@ $(document).ready(function(){
     //Guess must be a number
     } else if (isNaN(guess)) {
       alert("You gotta provide a number!");
-    }
-
-    // Guess needs to be converted to a num for exact ===,
-    // otherwise players will get points for empty strings since "" == 0
-    guess = Number(guess);
-    // Check if the guess matches one of our ships locations
-    if (guess === ships[0] || guess === ships[1]) {
+      // Check if the guess matches one of our ships locations
+    } else if  (guess == ships[0] || guess == ships[1]) {
       board[guess] = "X";
       $("#guess-result").append("HIT");
       hits += 1;
@@ -105,6 +106,7 @@ $(document).ready(function(){
       guesses += 1;
     }
     // Continue gameplay
+
     // Redraw the board if it has changed
     $("#board, #guess-count").empty();
     $("#board").append(board);
@@ -112,18 +114,19 @@ $(document).ready(function(){
     $("#guess-count").append("Guesses: " + guesses)
 
     // NOTE: How does the game end?
-    // If WIN
-    if (hits == 2 && guesses <= 5){
-      alert("Congrats, you won!");
-      gameOver = true
     // If LOSE
-    } else if (guesses > 5) {
+    if (guesses > 5) {
       alert("Sorry, you lose!");
+      gameOver = true
+    // if WIN
+    } else if (board[ships[0]] == "X" && board[ships[1]] == "X") {
+      alert("Congrats, you won!");
       gameOver = true
     }
 
     if (gameOver == true){
       $("#end-game").append("GAME OVER");
+
     }
   }
 });
