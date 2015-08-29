@@ -94,18 +94,25 @@ $(document).ready(function(){
     if (guess == ships[0]){
       board[guess] = "X";
       $("#guess-result").append("HIT");
+      hits += 1;
+      guesses += 1;
     } else if (guess == ships[1]){
       board[guess] = "X";
       $("#guess-result").append("HIT");
+      hits += 1;
+      guesses += 1;
     } else {
       board[guess] = "_";
       $("#guess-result").append("MISS");
+      guesses += 1;
     }
     // Continue gameplay
     // Redraw the board if it has changed
-    $("#board").empty();
+    $("#board, #guess-count").empty();
     $("#board").append(board);
     // Tell the user how many guesses they've made
+    $("#guess-count").append("Guesses: " + guesses)
+
 
     // NOTE: How does the game end?
   }
