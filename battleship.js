@@ -65,8 +65,12 @@ $(document).ready(function(){
   function endGame() {
     // TODO: End game
     // ADDED FUN: Disable submit button
-    $("#end-game").append("GAME OVER");
-    $("#submit").replaceWith("<p>All done!</p>");
+    $("#guess, h4").remove();
+    $("#submit").replaceWith("<button id='play-again'>Play Again?</button>");
+
+    $('button#play-again').click (function() {
+      window.location.reload();
+    });
   }
 
   // CLICK HANDLERS
@@ -120,14 +124,15 @@ $(document).ready(function(){
     // NOTE: How does the game end?
     // If LOSE
     if (guesses > 5) {
-      alert("Sorry, you lose!");
+      $("body").append("Sorry, you lost!")
       gameOver = true;
       endGame();
     // if WIN
     } else if (board[ships[0]] == "X" && board[ships[1]] == "X") {
-      alert("Congrats, you won!");
+      $("#end-game").append("Congrats, you won!")
       gameOver = true;
       endGame();
     }
   }
+
 });
