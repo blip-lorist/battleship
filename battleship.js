@@ -72,31 +72,39 @@ $(document).ready(function(){
   $("#submit").click(userGuess);
 
   function userGuess(){
-
+    $("#guess-result").empty()
     // Retrieve the guess from the input box
     var guess_box = $("#guess");
     var guess = guess_box.val();
     // Reset the guess input box
-    guess_box.val("")
+    guess_box.val("");
     // Verify the guess is in a valid range
     // Guess can't be empty
     if (guess.length == 0){
-      alert("Please enter a guess.")
+      alert("Please enter a guess.");
     // Guess must be between 0 - 9
     } else if (guess < 0 || guess > 9){
-      alert("Your guess needs to be between 0 and 9.")
+      alert("Your guess needs to be between 0 and 9.");
     //Guess must be a number
     } else if (isNaN(guess)) {
-      alert("You gotta provide a number!")
+      alert("You gotta provide a number!");
     }
 
-
     // Check if the guess matches one of our ships locations
-    // If it does, mark is as a HIT
-    // If it doesn't, mark it as a MISS
-
+    if (guess == ships[0]){
+      board[guess] = "X";
+      $("#guess-result").append("HIT");
+    } else if (guess == ships[1]){
+      board[guess] = "X";
+      $("#guess-result").append("HIT");
+    } else {
+      board[guess] = "_";
+      $("#guess-result").append("MISS");
+    }
     // Continue gameplay
     // Redraw the board if it has changed
+    $("#board").empty();
+    $("#board").append(board);
     // Tell the user how many guesses they've made
 
     // NOTE: How does the game end?
