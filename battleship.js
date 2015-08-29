@@ -90,13 +90,11 @@ $(document).ready(function(){
       alert("You gotta provide a number!");
     }
 
+    // Guess needs to be converted to a num for exact ===,
+    // otherwise players will get points for empty strings since "" == 0
+    guess = Number(guess);
     // Check if the guess matches one of our ships locations
-    if (guess == ships[0]){
-      board[guess] = "X";
-      $("#guess-result").append("HIT");
-      hits += 1;
-      guesses += 1;
-    } else if (guess == ships[1]){
+    if (guess === ships[0] || guess === ships[1]) {
       board[guess] = "X";
       $("#guess-result").append("HIT");
       hits += 1;
@@ -113,7 +111,19 @@ $(document).ready(function(){
     // Tell the user how many guesses they've made
     $("#guess-count").append("Guesses: " + guesses)
 
-
     // NOTE: How does the game end?
+    // If WIN
+    if (hits == 2 && guesses <= 5){
+      alert("Congrats, you won!");
+      gameOver = true
+    // If LOSE
+    } else if (guesses > 5) {
+      alert("Sorry, you lose!");
+      gameOver = true
+    }
+
+    if (gameOver == true){
+      $("#end-game").append("GAME OVER");
+    }
   }
 });
