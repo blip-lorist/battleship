@@ -4,6 +4,7 @@ $(document).ready(function(){
     0 for empty
     1 for ship
     X when hit
+    _ when miss
   */
   var board = [];
 
@@ -71,11 +72,24 @@ $(document).ready(function(){
   $("#submit").click(userGuess);
 
   function userGuess(){
+
     // Retrieve the guess from the input box
-
+    var guess_box = $("#guess");
+    var guess = guess_box.val();
     // Reset the guess input box
-
+    guess_box.val("")
     // Verify the guess is in a valid range
+    // Guess can't be empty
+    if (guess.length == 0){
+      alert("Please enter a guess.")
+    // Guess must be between 0 - 9
+    } else if (guess < 0 || guess > 9){
+      alert("Your guess needs to be between 0 and 9.")
+    //Guess must be a number
+    } else if (isNaN(guess)) {
+      alert("You gotta provide a number!")
+    }
+
 
     // Check if the guess matches one of our ships locations
     // If it does, mark is as a HIT
